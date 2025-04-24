@@ -1,59 +1,74 @@
 const clear = document.querySelector("#clear");
 const positNegat = document.querySelector("#positive-negative");
-const percent = document.querySelector("#percent");
-const add = document.querySelector("#add");
-const one = document.querySelector("#one");
-const two = document.querySelector("#two");
-const three = document.querySelector("#three");
-const subtract = document.querySelector("#subtract");
-const four = document.querySelector("#four");
-const five = document.querySelector("#five");
-const six = document.querySelector("#six");
-const multiply = document.querySelector("#multiply");
-const seven = document.querySelector("#seven");
-const eight = document.querySelector("#eight");
-const nine = document.querySelector("#nine");
-const divide = document.querySelector("#divide");
-const zero = document.querySelector("#zero");
+const backspace = document.querySelector("#backspace");
 const dot = document.querySelector("#dot");
 const equals = document.querySelector("#equals");
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
+let numberA;
+let numberB;
 let number;
 let operator;
-let dispNums = [];
-let newArr = [];
+let numbers = [];
 let result;
 let operatorIsClicked = false;
 
 for (let i = 0; i < 10; i++) {
   digits[i].addEventListener("click", (e) => {
     if (operatorIsClicked) {
-      display.textContent = "";
-      dispNums = [];
+      clearDisplay();
     }
-    if (dispNums.length != 10) {
-      dispNums.push(e.target.textContent);
-    }
-
-    display.textContent = dispNums.join("");
-    number = parseFloat(display.textContent);
-    newArr.push(number);
-    operatorIsClicked = false;
+    display.textContent += e.target.textContent;
+    getNumber();
   });
 }
 
 for (let i = 0; i < 4; i++) {
   operators[i].addEventListener("click", (e) => {
-    operator = e.target.textContent;
-    operatorIsClicked = true;
+    getNumber();
+    operator = e.target.textContent;    
+    numbers.push(number);    
+    operatorIsClicked = true;    
   });
 }
 
-equals.addEventListener("click", () => {
-  operate;
+equals.addEventListener("click", () => {  
+  numbers.push(number);
+  display.textContent = operate(numbers[0], numbers[1], operator);  
+  numbers = [];  
+  operatorIsClicked = true;  
 });
+
+clear.addEventListener("click", clearAll);
+
+// functions
+
+function clearAll(){  
+  clearDisplay();
+  numbers = [];
+  operatorIsClicked = false;
+}
+
+function clearDisplay() {
+  display.textContent = "";
+}
+
+function addNums(a, b) {
+  return a + b;
+}
+
+function subtractNums(a, b) {
+  return a - b;
+}
+
+function multiplyNums(a, b) {
+  return a * b;
+}
+
+function divideNums(a, b) {
+  return a / b;
+}
 
 function operate(numberA, numberB, operator) {
   switch (operator) {
@@ -74,25 +89,7 @@ function operate(numberA, numberB, operator) {
   }
 }
 
-clear.addEventListener("click", () => {
-  dispNums = [];
-  newArr = [];
-  display.textContent = dispNums;
-  operatorIsClicked = false;
-});
-
-function addNums(a, b) {
-  return a + b;
-}
-
-function subtractNums(a, b) {
-  return a - b;
-}
-
-function multiplyNums(a, b) {
-  return a * b;
-}
-
-function divideNums(a, b) {
-  return a / b;
+function getNumber(){
+  number = parseFloat(display.textContent);
+  operatorIsClicked = false;  
 }

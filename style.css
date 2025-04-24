@@ -50,6 +50,15 @@ h1{
   transform: scale(1.05);
 }
 
+#backspace{
+  /* text-align: center; */
+}
+
+img{
+  padding-top: 10px;
+  width: 50px;
+}
+
 .btn#add:hover,
 .btn#subtract:hover,
 .btn#multiply:hover,
@@ -57,7 +66,7 @@ h1{
 .btn#equals:hover,
 .btn#clear:hover,
 .btn#positive-negative:hover,
-.btn#percent:hover{
+.btn#backspace:hover{
   background-color: #FED1B5; 
 }
 
@@ -68,7 +77,7 @@ h1{
 .btn#equals:active,
 .btn#clear:active,
 .btn#positive-negative:active,
-.btn#percent:active{
+.btn#backspace:active{
   background-color: pink; 
 }
 
@@ -90,6 +99,7 @@ h1{
   background-color: #FFE2CA;
 }
 
-#clear, #positive-negative, #percent{
+#clear, #positive-negative, #backspace{
   background-color: #FFBDA6;
 }
+
