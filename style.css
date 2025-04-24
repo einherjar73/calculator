@@ -73,11 +73,13 @@ h1{
 }
 
 #display{
+  text-align: right;
   width: 400px;
   height: 90px;
+  font-size: 70px;
   border: 2px solid #f88640;
   box-sizing: border-box;
-  background-color: ghostwhite;
+  background-color: ghostwhite;  
 }
 
 #zero{
