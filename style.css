@@ -1,4 +1,4 @@
-body{
+body {
   margin: 0;
   /* text-align: center; */
   display: flex;
@@ -9,16 +9,16 @@ body{
   background-repeat: no-repeat;
 }
 
-h1{
+h1 {
   margin: 20px;
-  font-family: 'Rubik Bubbles';
+  font-family: "Rubik Bubbles";
   font-size: 50px;
   font-style: italic;
   font-weight: 100;
-  color: #F9EAE5;
+  color: #f9eae5;
 }
 
-.calc-container{  
+.calc-container {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -30,31 +30,31 @@ h1{
   overflow: hidden;
 }
 
-.btn{
+.btn {
   width: 100px;
   height: 85px;
   font-size: 35px;
   font-style: italic;
   color: #141d21;
-  background-color: #F9EAE5;
+  background-color: #f9eae5;
   border-radius: 7px;
-  border: 2px solid #f88640;  
+  border: 2px solid #f88640;
 }
 
-.btn:hover{
-  background-color: #FED1B5;  
+.btn:hover {
+  background-color: #fed1b5;
 }
 
-.btn:active{
+.btn:active {
   background-color: pink;
   transform: scale(1.05);
 }
 
-#backspace{
+#backspace {
   /* text-align: center; */
 }
 
-img{
+img {
   padding-top: 10px;
   width: 50px;
 }
@@ -66,8 +66,8 @@ img{
 .btn#equals:hover,
 .btn#clear:hover,
 .btn#positive-negative:hover,
-.btn#backspace:hover{
-  background-color: #FED1B5; 
+.btn#backspace:hover {
+  background-color: #fed1b5;
 }
 
 .btn#add:active,
@@ -77,11 +77,11 @@ img{
 .btn#equals:active,
 .btn#clear:active,
 .btn#positive-negative:active,
-.btn#backspace:active{
-  background-color: pink; 
+.btn#backspace:active {
+  background-color: pink;
 }
 
-#display{
+#display {
   text-align: right;
   width: 400px;
   height: 90px;
@@ -92,15 +92,20 @@ img{
   overflow: hidden;
 }
 
-#zero{
+#zero {
   width: 200px;
 }
 
-#add, #subtract, #multiply, #divide, #equals{
-  background-color: #FFE2CA;
+#add,
+#subtract,
+#multiply,
+#divide,
+#equals {
+  background-color: #ffe2ca;
 }
 
-#clear, #positive-negative, #backspace{
-  background-color: #FFBDA6;
+#clear,
+#positive-negative,
+#backspace {
+  background-color: #ffbda6;
 }
-
