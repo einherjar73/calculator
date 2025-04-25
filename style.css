@@ -18,8 +18,8 @@ h1 {
   color: #f9eae5;
 }
 
-.container{
-  background-color: #ffa90a;
+.container {
+  background-color: #FF8DA1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,10 +59,6 @@ h1 {
 .btn:active {
   background-color: pink;
   transform: scale(1.05);
-}
-
-#backspace {
-  /* text-align: center; */
 }
 
 img {
