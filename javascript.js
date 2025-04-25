@@ -1,53 +1,96 @@
 const clear = document.querySelector("#clear");
 const positNegat = document.querySelector("#positive-negative");
 const backspace = document.querySelector("#backspace");
-const dot = document.querySelector("#dot");
 const equals = document.querySelector("#equals");
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
-let numberA;
-let numberB;
 let number;
 let operator;
 let numbers = [];
 let result;
 let operatorIsClicked = false;
+let operatorClickedOnce = true;
+let equalIsClickedOnce = true;
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 11; i++) {
   digits[i].addEventListener("click", (e) => {
-    if (operatorIsClicked) {
-      clearDisplay();
+    if (display.textContent.includes(".") && 
+    e.target.id === "dot"){
+      return;
+    } else {
+      if (operatorIsClicked) {
+        clearDisplay();
+      }
+      display.textContent += e.target.textContent;
+      getNumber();
     }
-    display.textContent += e.target.textContent;
-    getNumber();
   });
 }
+
 
 for (let i = 0; i < 4; i++) {
   operators[i].addEventListener("click", (e) => {
-    getNumber();
-    operator = e.target.textContent;    
-    numbers.push(number);    
-    operatorIsClicked = true;    
+    if (operatorClickedOnce){
+      if (display.textContent != ''){
+        getNumber();
+        numbers.push(number);        
+        operator = e.target.textContent;        
+        operatorIsClicked = true;
+        operatorClickedOnce = false;
+        equalIsClickedOnce = true;
+        console.log(numbers);
+        console.log(number);
+        console.log(operator);        
+      }
+    } else if (!operatorClickedOnce){
+      operatorEqualsTo(operator);
+      getNumber();
+      operator = e.target.textContent;
+      operatorIsClicked = true;
+      operatorClickedOnce = false;
+      equalIsClickedOnce = true;
+      console.log(numbers);
+      console.log(number);
+      console.log(operator);
+    }
   });
 }
 
-equals.addEventListener("click", () => {  
-  numbers.push(number);
-  display.textContent = operate(numbers[0], numbers[1], operator);  
-  numbers = [];  
-  operatorIsClicked = true;  
-});
+equals.addEventListener("click", equalsTo);
 
 clear.addEventListener("click", clearAll);
 
 // functions
 
-function clearAll(){  
+function equalsTo(){
+  if (equalIsClickedOnce){
+    if (operator){
+      numbers.push(number);
+      display.textContent = operate(numbers[0], numbers[1], operator);      
+      numbers = [];
+      operatorIsClicked = true;
+      operatorClickedOnce = true;
+      equalIsClickedOnce = false;
+    }
+  }
+}
+
+function operatorEqualsTo(operator){
+  numbers.push(number);
+  display.textContent = operate(numbers[numbers.length-2], numbers[numbers.length-1], operator);
+  numbers.push(parseFloat(display.textContent));
+  operatorIsClicked = true;
+  console.log(numbers);
+}
+
+function clearAll(){
   clearDisplay();
   numbers = [];
+  operator = '';
   operatorIsClicked = false;
+  operatorClickedOnce = true;
+  equalIsClickedOnce = true;
 }
 
 function clearDisplay() {
@@ -67,7 +110,12 @@ function multiplyNums(a, b) {
 }
 
 function divideNums(a, b) {
-  return a / b;
+  
+  if (b === 0){
+    return "I Can't 😔"
+  } else {
+    return a / b;
+  }
 }
 
 function operate(numberA, numberB, operator) {
