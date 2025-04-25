@@ -18,11 +18,22 @@ h1 {
   color: #f9eae5;
 }
 
+.container{
+  background-color: #ffa90a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 3px solid black;
+  width: 440px;
+  height: 570px;
+}
+
 .calc-container {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  border: 4px solid rgb(0, 0, 0);
+  border: 2px solid rgba(243, 38, 38, 0.607);
   /* box-sizing: border-box; */
   width: 400px;
   height: 510px;
@@ -37,7 +48,7 @@ h1 {
   font-style: italic;
   color: #141d21;
   background-color: #f9eae5;
-  border-radius: 7px;
+  border-radius: 7%;
   border: 2px solid #f88640;
 }
 
