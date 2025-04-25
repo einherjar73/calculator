@@ -12,6 +12,7 @@ let result;
 let operatorIsClicked = false;
 let operatorClickedOnce = true;
 let equalIsClickedOnce = true;
+let dividedByZero = false;
 
 for (let i = 0; i < 11; i++) {
   digits[i].addEventListener("click", (e) => {
@@ -22,8 +23,10 @@ for (let i = 0; i < 11; i++) {
       if (operatorIsClicked) {
         clearDisplay();
       }
-      display.textContent += e.target.textContent;
-      getNumber();
+      if (display.textContent.length < 10){
+        display.textContent += e.target.textContent;
+        getNumber();
+      }
     }
   });
 }
@@ -38,10 +41,7 @@ for (let i = 0; i < 4; i++) {
         operator = e.target.textContent;        
         operatorIsClicked = true;
         operatorClickedOnce = false;
-        equalIsClickedOnce = true;
-        console.log(numbers);
-        console.log(number);
-        console.log(operator);        
+        equalIsClickedOnce = true;               
       }
     } else if (!operatorClickedOnce){
       operatorEqualsTo(operator);
@@ -49,10 +49,7 @@ for (let i = 0; i < 4; i++) {
       operator = e.target.textContent;
       operatorIsClicked = true;
       operatorClickedOnce = false;
-      equalIsClickedOnce = true;
-      console.log(numbers);
-      console.log(number);
-      console.log(operator);
+      equalIsClickedOnce = true;      
     }
   });
 }
@@ -67,11 +64,11 @@ function equalsTo(){
   if (equalIsClickedOnce){
     if (operator){
       numbers.push(number);
-      display.textContent = operate(numbers[0], numbers[1], operator);      
+      display.textContent = operate(numbers[numbers.length-2], numbers[numbers.length-1], operator);
       numbers = [];
       operatorIsClicked = true;
       operatorClickedOnce = true;
-      equalIsClickedOnce = false;
+      equalIsClickedOnce = false;      
     }
   }
 }
@@ -80,8 +77,7 @@ function operatorEqualsTo(operator){
   numbers.push(number);
   display.textContent = operate(numbers[numbers.length-2], numbers[numbers.length-1], operator);
   numbers.push(parseFloat(display.textContent));
-  operatorIsClicked = true;
-  console.log(numbers);
+  operatorIsClicked = true;  
 }
 
 function clearAll(){
@@ -91,6 +87,7 @@ function clearAll(){
   operatorIsClicked = false;
   operatorClickedOnce = true;
   equalIsClickedOnce = true;
+  dividedByZero = false;
 }
 
 function clearDisplay() {
@@ -111,8 +108,8 @@ function multiplyNums(a, b) {
 
 function divideNums(a, b) {
   
-  if (b === 0){
-    return "I Can't 😔"
+  if (b === 0){    
+    return "I Can't 😔";
   } else {
     return a / b;
   }
