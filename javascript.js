@@ -15,28 +15,27 @@ let operatorIsClicked = false;
 let operatorClickedOnce = true;
 let equalIsClickedOnce = true;
 let dividedByZero = false;
-const operatorsForKeys = '+-*/'
-const digitsForKeys = '1234567890.'
+const digitsForKeys = "1234567890.";
 
 // Event Listeners
 
-window.addEventListener("keydown", (e) => {  
-  if (digitsForKeys.includes(e.key)){
-    if (operatorIsClicked) {
-      clearDisplay();
+window.addEventListener("keydown", (e) => {
+  if (display.textContent.includes(".") && e.target.id === "dot") {
+    return;
+  } else {
+    if (digitsForKeys.includes(e.key)) {
+      if (operatorIsClicked) {
+        clearDisplay();
+      }
+      if (display.textContent.length < 10) {
+        display.textContent += e.key;
+        getNumber();
+      }
     }
-    if (display.textContent.length < 10){
-      display.textContent += e.key;
-      getNumber();
+    if (e.key == "Backspace") {
+      backspaceHandler();
     }
   }
-  if (e.key == 'Backspace'){
-    backspaceHandler();
-  }
-
-  if (operatorsForKeys.includes(e.key)){
-    handleOperators();
-  };
 });
 
 for (let i = 0; i < 11; i++) {
@@ -47,13 +46,13 @@ for (let i = 0; i < 4; i++) {
   operators[i].addEventListener("click", handleOperators);
 }
 
-backspace.addEventListener("click", backspaceHandler)
+backspace.addEventListener("click", backspaceHandler);
 
 positNegat.addEventListener("click", () => {
   if (parseFloat(display.textContent) > 0) {
     display.textContent = `-${display.textContent}`;
     getNumber();
-  } else if (parseFloat(display.textContent) < 0){
+  } else if (parseFloat(display.textContent) < 0) {
     display.textContent = display.textContent.slice(1);
     getNumber();
   }
@@ -65,26 +64,26 @@ clear.addEventListener("click", clearAll);
 
 // Functions
 
-function backspaceHandler(){
+function backspaceHandler() {
   display.textContent = display.textContent.slice(0, -1);
   getNumber();
 }
 
-function handleNumbers(e){
+function handleNumbers(e) {
   if (display.textContent.includes(".") && e.target.id === "dot") {
     return;
   } else {
     if (operatorIsClicked) {
       clearDisplay();
     }
-    if (display.textContent.length < 10) {        
+    if (display.textContent.length < 10) {
       display.textContent += e.target.textContent;
       getNumber();
     }
   }
 }
 
-function handleOperators(e){
+function handleOperators(e) {
   if (operatorClickedOnce) {
     if (display.textContent != "") {
       getNumber();
@@ -92,7 +91,7 @@ function handleOperators(e){
       operator = e.target.textContent;
       operatorIsClicked = true;
       operatorClickedOnce = false;
-      equalIsClickedOnce = true;        
+      equalIsClickedOnce = true;
     }
   } else if (!operatorClickedOnce) {
     operatorEqualsTo(operator);
@@ -117,7 +116,7 @@ function equalsTo() {
       operatorIsClicked = true;
       operatorClickedOnce = true;
       equalIsClickedOnce = false;
-    }    
+    }
   }
 }
 
@@ -146,24 +145,56 @@ function clearDisplay() {
   display.textContent = "";
 }
 
-function addNums(a, b) {  
-    return a + b;  
+function addNums(a, b) {
+  if (((a + b) < 9999999999 && (a + b) > -9999999999)){
+    if (Number.isInteger(a + b)) {
+      return a + b;
+    } else {
+      return parseFloat((a + b).toFixed(2));
+    }
+  } else {
+    return NaN;
+  }
 }
 
 function subtractNums(a, b) {
-  return a - b;
+  if (((a - b) < 9999999999 && (a - b) > -9999999999)){
+    if (Number.isInteger(a - b)) {
+      return a - b;
+    } else {
+      return parseFloat((a - b).toFixed(2));
+    }
+  } else {
+    return NaN;
+  }
 }
 
 function multiplyNums(a, b) {
-  return a * b;
+  if (((a * b) < 9999999999 && (a * b) > -9999999999)){
+    if (Number.isInteger(a * b)) {    
+      return a * b;
+    } else {
+      return parseFloat((a * b).toFixed(2));
+    }
+  } else {
+    return NaN;
+  }
 }
 
 function divideNums(a, b) {
   if (b === 0) {
     return "I Can't 😔";
   } else {
-    return a / b;
-  }
+    if (((a / b) < 9999999999 && (a / b) > -9999999999)){
+      if (Number.isInteger(a / b)) {
+        return a / b;
+      } else {
+        return parseFloat((a / b).toFixed(2));
+      }
+    } else {
+      return NaN;
+    }
+  } 
 }
 
 function operate(numberA, numberB, operator) {
