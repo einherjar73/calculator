@@ -20,7 +20,7 @@ const digitsForKeys = "1234567890.";
 // Event Listeners
 
 window.addEventListener("keydown", (e) => {
-  if (display.textContent.includes(".") && e.target.id === "dot") {
+  if (display.textContent.includes(".") && e.key === ".") {
     return;
   } else {
     if (digitsForKeys.includes(e.key)) {
@@ -146,7 +146,7 @@ function clearDisplay() {
 }
 
 function addNums(a, b) {
-  if (((a + b) < 9999999999 && (a + b) > -9999999999)){
+  if (a + b < 9999999999 && a + b > -9999999999) {
     if (Number.isInteger(a + b)) {
       return a + b;
     } else {
@@ -158,7 +158,7 @@ function addNums(a, b) {
 }
 
 function subtractNums(a, b) {
-  if (((a - b) < 9999999999 && (a - b) > -9999999999)){
+  if (a - b < 9999999999 && a - b > -9999999999) {
     if (Number.isInteger(a - b)) {
       return a - b;
     } else {
@@ -170,8 +170,8 @@ function subtractNums(a, b) {
 }
 
 function multiplyNums(a, b) {
-  if (((a * b) < 9999999999 && (a * b) > -9999999999)){
-    if (Number.isInteger(a * b)) {    
+  if (a * b < 9999999999 && a * b > -9999999999) {
+    if (Number.isInteger(a * b)) {
       return a * b;
     } else {
       return parseFloat((a * b).toFixed(2));
@@ -185,7 +185,7 @@ function divideNums(a, b) {
   if (b === 0) {
     return "I Can't 😔";
   } else {
-    if (((a / b) < 9999999999 && (a / b) > -9999999999)){
+    if (a / b < 9999999999 && a / b > -9999999999) {
       if (Number.isInteger(a / b)) {
         return a / b;
       } else {
@@ -194,7 +194,7 @@ function divideNums(a, b) {
     } else {
       return NaN;
     }
-  } 
+  }
 }
 
 function operate(numberA, numberB, operator) {
