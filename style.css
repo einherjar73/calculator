@@ -88,7 +88,8 @@ img{
   font-size: 70px;
   border: 2px solid #f88640;
   box-sizing: border-box;
-  background-color: ghostwhite;  
+  background-color: ghostwhite;
+  overflow: hidden;
 }
 
 #zero{

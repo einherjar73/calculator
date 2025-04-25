@@ -15,51 +15,39 @@ let operatorIsClicked = false;
 let operatorClickedOnce = true;
 let equalIsClickedOnce = true;
 let dividedByZero = false;
+const operatorsForKeys = '+-*/'
+const digitsForKeys = '1234567890.'
 
 // Event Listeners
 
-for (let i = 0; i < 11; i++) {
-  digits[i].addEventListener("click", (e) => {
-    if (display.textContent.includes(".") && e.target.id === "dot") {
-      return;
-    } else {
-      if (operatorIsClicked) {
-        clearDisplay();
-      }
-      if (display.textContent.length < 10) {        
-        display.textContent += e.target.textContent;
-        getNumber();
-      }
+window.addEventListener("keydown", (e) => {  
+  if (digitsForKeys.includes(e.key)){
+    if (operatorIsClicked) {
+      clearDisplay();
     }
-  });
+    if (display.textContent.length < 10){
+      display.textContent += e.key;
+      getNumber();
+    }
+  }
+  if (e.key == 'Backspace'){
+    backspaceHandler();
+  }
+
+  if (operatorsForKeys.includes(e.key)){
+    handleOperators();
+  };
+});
+
+for (let i = 0; i < 11; i++) {
+  digits[i].addEventListener("click", handleNumbers);
 }
 
 for (let i = 0; i < 4; i++) {
-  operators[i].addEventListener("click", (e) => {
-    if (operatorClickedOnce) {
-      if (display.textContent != "") {
-        getNumber();
-        numbers.push(number);
-        operator = e.target.textContent;
-        operatorIsClicked = true;
-        operatorClickedOnce = false;
-        equalIsClickedOnce = true;        
-      }
-    } else if (!operatorClickedOnce) {
-      operatorEqualsTo(operator);
-      getNumber();
-      operator = e.target.textContent;
-      operatorIsClicked = true;
-      operatorClickedOnce = false;
-      equalIsClickedOnce = true;      
-    }
-  });
+  operators[i].addEventListener("click", handleOperators);
 }
 
-backspace.addEventListener("click", () => {  
-  display.textContent = display.textContent.slice(0, -1);
-  getNumber();
-})
+backspace.addEventListener("click", backspaceHandler)
 
 positNegat.addEventListener("click", () => {
   if (parseFloat(display.textContent) > 0) {
@@ -76,6 +64,45 @@ equals.addEventListener("click", equalsTo);
 clear.addEventListener("click", clearAll);
 
 // Functions
+
+function backspaceHandler(){
+  display.textContent = display.textContent.slice(0, -1);
+  getNumber();
+}
+
+function handleNumbers(e){
+  if (display.textContent.includes(".") && e.target.id === "dot") {
+    return;
+  } else {
+    if (operatorIsClicked) {
+      clearDisplay();
+    }
+    if (display.textContent.length < 10) {        
+      display.textContent += e.target.textContent;
+      getNumber();
+    }
+  }
+}
+
+function handleOperators(e){
+  if (operatorClickedOnce) {
+    if (display.textContent != "") {
+      getNumber();
+      numbers.push(number);
+      operator = e.target.textContent;
+      operatorIsClicked = true;
+      operatorClickedOnce = false;
+      equalIsClickedOnce = true;        
+    }
+  } else if (!operatorClickedOnce) {
+    operatorEqualsTo(operator);
+    getNumber();
+    operator = e.target.textContent;
+    operatorIsClicked = true;
+    operatorClickedOnce = false;
+    equalIsClickedOnce = true;
+  }
+}
 
 function equalsTo() {
   if (equalIsClickedOnce) {
@@ -119,8 +146,8 @@ function clearDisplay() {
   display.textContent = "";
 }
 
-function addNums(a, b) {
-  return a + b;
+function addNums(a, b) {  
+    return a + b;  
 }
 
 function subtractNums(a, b) {
